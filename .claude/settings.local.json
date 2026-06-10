@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Recurse -Depth 2 D:\\\\code\\\\rust\\\\FloatTodo | Where-Object { -not $_.PSIsContainer } | ForEach-Object { $_.FullName.Replace\\(\"D:\\\\code\\\\rust\\\\FloatTodo\\\\\", \"\"\\) })",
+      "PowerShell(npx tsc --noEmit 2>&1)",
+      "PowerShell(pnpm build *)"
+    ]
+  }
+}
