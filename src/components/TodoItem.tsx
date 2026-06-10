@@ -3,12 +3,14 @@ import type { TodoItem } from "../types";
 
 interface Props {
   item: TodoItem;
+  index: number;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onEdit: (id: string, text: string) => void;
+  onPointerDown: (index: number, e: React.PointerEvent) => void;
 }
 
-export function TodoItemView({ item, onToggle, onDelete, onEdit }: Props) {
+export function TodoItemView({ item, index, onToggle, onDelete, onEdit, onPointerDown }: Props) {
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(item.text);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,15 +66,31 @@ export function TodoItemView({ item, onToggle, onDelete, onEdit }: Props) {
           {item.text}
         </span>
       )}
-      <button
-        className="todo-delete-btn"
-        onClick={() => onDelete(item.id)}
-        aria-label="删除"
-      >
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-        </svg>
-      </button>
+      <div className="todo-actions">
+        <span
+          className="todo-drag-handle"
+          onPointerDown={(e) => onPointerDown(index, e)}
+          aria-hidden="true"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ pointerEvents: "none" }}>
+            <circle cx="4" cy="2" r="1" fill="currentColor" />
+            <circle cx="8" cy="2" r="1" fill="currentColor" />
+            <circle cx="4" cy="6" r="1" fill="currentColor" />
+            <circle cx="8" cy="6" r="1" fill="currentColor" />
+            <circle cx="4" cy="10" r="1" fill="currentColor" />
+            <circle cx="8" cy="10" r="1" fill="currentColor" />
+          </svg>
+        </span>
+        <button
+          className="todo-delete-btn"
+          onClick={() => onDelete(item.id)}
+          aria-label="删除"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }

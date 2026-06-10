@@ -7,7 +7,7 @@ import { ResizeHandle } from "./components/ResizeHandle";
 import "./App.css";
 
 function App() {
-  const { items, addTodo, toggleTodo, deleteTodo, editTodo, clearCompleted, completedCount } = useTodos();
+  const { items, addTodo, toggleTodo, deleteTodo, editTodo, clearCompleted, moveItem, completedCount } = useTodos();
   const { isPinned, togglePin, minimize, close } = useWindowControls();
 
   return (
@@ -21,6 +21,7 @@ function App() {
           onDelete={deleteTodo}
           onEdit={editTodo}
           onClearCompleted={clearCompleted}
+          onMoveItem={moveItem}
           completedCount={completedCount}
         />
       </div>
